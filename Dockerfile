@@ -9,6 +9,10 @@ RUN php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');" &&
 
 RUN wget https://get.symfony.com/cli/installer -O - | bash && mv /root/.symfony/bin/symfony /usr/local/bin/
 
+ADD . /var/www/html
+
 WORKDIR /var/www/html
 
-CMD composer install
+RUN composer install
+
+CMD symfony server:start

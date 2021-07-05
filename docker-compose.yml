@@ -4,13 +4,17 @@ services:
 
   db:
     image: mysql:8.0.25
+    command: --default-authentication-plugin=mysql_native_password
     platform: linux/x86_64
     container_name: db_docker_symfony
     restart: always
     volumes:
       - db_data:/var/lib/mysql
     environment:
-      MYSQL_ALLOW_EMPTY_PASSWORD: 'yes'
+      MYSQL_DATABASE: 'bilemo'
+      MYSQL_ROOT_PASSWORD: 'bilemo'
+      MYSQL_USER: 'bilemo'
+      MYSQL_PASSWORD: 'bilemo'
     networks:
       - dev
 
@@ -25,6 +29,9 @@ services:
       - 8888:80
     environment:
       PMA_HOST: db
+      MYSQL_ROOT_PASSWORD: 'bilemo'
+      MYSQL_USER: 'bilemo'
+      MYSQL_PASSWORD: 'bilemo'
     networks:
       - dev
 
