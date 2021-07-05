@@ -39,6 +39,11 @@ class Product
     private $description;
 
     /**
+     * @ORM\ManyToOne(targetEntity="ProductCategory", inversedBy="products", cascade={"all"}, fetch="EAGER")
+     */
+    private $category;
+
+    /**
      * @ORM\Column(type="integer", nullable=false)
      */
     private $unitPriceOffTax;
@@ -102,6 +107,18 @@ class Product
     public function setDescription(?string $description): self
     {
         $this->description = $description;
+
+        return $this;
+    }
+
+    public function getCategory(): ProductCategory
+    {
+        return $this->category;
+    }
+
+    public function setCategory(ProductCategory $category): self
+    {
+        $this->category = $category;
 
         return $this;
     }
