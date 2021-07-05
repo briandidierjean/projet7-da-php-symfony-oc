@@ -21,7 +21,7 @@ class Customer
     /**
      * @ORM\Column(type="string", length=50, unique=true, nullable=false)
      */
-    private $customerNumber; // TODO: Change type in classes diagram
+    private $customerNumber;
 
     /**
      * @ORM\Column(type="string", length=100, nullable=false)
