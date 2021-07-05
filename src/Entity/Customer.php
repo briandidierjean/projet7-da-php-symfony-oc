@@ -3,6 +3,7 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -32,6 +33,16 @@ class Customer
      * @ORM\Column(type="string", nullable=false)
      */
     private $password;
+
+    /**
+     * @ORM\OneToMany(targetEntity="User", mappedBy="customer", cascade={"persist"})
+     */
+    private $users;
+
+    public function __construct()
+    {
+        $this->users = new ArrayCollection();
+    }
 
     public function getId(): int
     {
@@ -72,5 +83,10 @@ class Customer
         $this->password = $password;
 
         return $this;
+    }
+
+    public function getUsers(): ArrayCollection
+    {
+        return $this->users;
     }
 }
