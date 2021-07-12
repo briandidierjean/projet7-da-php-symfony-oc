@@ -1,3 +1,7 @@
-.git/
+.dockerignore
+.git
 .gitignore
-uml/
+.idea
+Dockerfile
+docker-compose.yml
+uml
