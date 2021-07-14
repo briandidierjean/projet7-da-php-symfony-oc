@@ -10,7 +10,7 @@ use Pagerfanta\Pagerfanta;
 
 abstract class AbstractRepository extends EntityRepository
 {
-    protected function paginate(QueryBuilder $queryBuilder, $offset = 0, $limit = 5)
+    protected function paginate(QueryBuilder $queryBuilder, $offset, $limit)
     {
         if ($limit === 0) {
             throw new \LogicException('$limit must be greater than 0.');
