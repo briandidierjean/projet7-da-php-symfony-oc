@@ -16,6 +16,7 @@ class ProductController extends AbstractFOSRestController
 {
     /**
      * @Get(path="/products", name="product_list")
+     *
      * @QueryParam(
      *     name="offset",
      *     requirements="\d+",
@@ -28,7 +29,8 @@ class ProductController extends AbstractFOSRestController
      *     default="5",
      *     description="The maximum of products per page."
      * )
-     * @View
+     *
+     * @View(serializerGroups={"GET_LIST"})
      */
     public function listAction(ParamFetcherInterface $paramFetcher)
     {
@@ -38,5 +40,19 @@ class ProductController extends AbstractFOSRestController
         );
 
         return new Products($pager);
+    }
+
+    /**
+     * @Get(
+     *     path="/products/{id}",
+     *     name="product_show",
+     *     requirements={"id"="\d+"}
+     * )
+     *
+     * @View(serializerGroups={"GET_SHOW"})
+     */
+    public function showAction(Product $product)
+    {
+        return $product;
     }
 }
