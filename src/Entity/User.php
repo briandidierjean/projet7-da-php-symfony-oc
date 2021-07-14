@@ -5,12 +5,54 @@ namespace App\Entity;
 
 use DateTime;
 use Doctrine\ORM\Mapping as ORM;
+use Hateoas\Configuration\Annotation as Hateoas;
 use JMS\Serializer\Annotation as Serializer;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
  * @ORM\Table(name="users")
+ *
+ * @Hateoas\Relation(
+ *     "self",
+ *     href=@Hateoas\Route(
+ *         "user_show",
+ *         parameters={
+ *             "user_id"="expr(object.getId())",
+ *             "customer_id"="expr(object.getCustomer().getId())"
+ *         },
+ *         absolute=true
+ *     ),
+ *     exclusion=@Hateoas\Exclusion(groups={"GET_USER_LIST", "GET_USER_SHOW"})
+ * )
+ * @Hateoas\Relation(
+ *     "create",
+ *     href=@Hateoas\Route(
+ *         "user_create",
+ *         parameters={
+ *             "id"="expr(object.getCustomer().getId())"
+ *         },
+ *         absolute=true
+ *     ),
+ *     exclusion=@Hateoas\Exclusion(groups={"GET_USER_LIST", "GET_USER_SHOW"})
+ * )
+ * @Hateoas\Relation(
+ *     "delete",
+ *     href=@Hateoas\Route(
+ *         "user_delete",
+ *         parameters={
+ *             "user_id"="expr(object.getId())",
+ *             "customer_id"="expr(object.getCustomer().getId())"
+ *         },
+ *         absolute=true
+ *     ),
+ *     exclusion=@Hateoas\Exclusion(groups={"GET_USER_LIST", "GET_USER_SHOW"})
+ * )
+ * @Hateoas\Relation(
+ *     "customer",
+ *     embedded=@Hateoas\Embedded("expr(object.getCustomer())"),
+ *     exclusion=@Hateoas\Exclusion(groups={"GET_USER_LIST", "GET_USER_SHOW"})
+ * )
  */
 class User
 {
@@ -25,8 +67,6 @@ class User
 
     /**
      * @ORM\ManyToOne(targetEntity="Customer", inversedBy="users", cascade={"all"}, fetch="EAGER")
-     *
-     * @Serializer\Groups({"GET_USER_LIST", "GET_USER_SHOW"})
      */
     private $customer;
 
