@@ -11,12 +11,12 @@ class Products
     /**
      * @Type("array<App\Entity\Product>")
      */
-    public $pager;
+    public $data;
     public $meta;
 
     public function __construct(Pagerfanta $pager)
     {
-        $this->pager = $pager->getCurrentPageResults();
+        $this->data = $pager->getCurrentPageResults();
 
         $this->addMeta('limit', $pager->getMaxPerPage());
         $this->addMeta('current_items', count($pager->getCurrentPageResults()));

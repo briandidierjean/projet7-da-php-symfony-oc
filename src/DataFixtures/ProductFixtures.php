@@ -19,7 +19,7 @@ class ProductFixtures extends Fixture
 
     public function generateReference()
     {
-        return strtoupper(substr($this->faker->unique()->uuid(), 0, 30));
+        return strtoupper(substr($this->faker->unique()->uuid(), 0, 20));
     }
 
     public function load(ObjectManager $manager)

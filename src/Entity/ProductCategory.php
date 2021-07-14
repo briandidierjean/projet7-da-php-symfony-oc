@@ -5,10 +5,13 @@ namespace App\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
+use JMS\Serializer\Annotation as Serializer;
 
 /**
  * @ORM\Entity
  * @ORM\Table(name="product_categories")
+ *
+ * @Serializer\ExclusionPolicy("ALL")
  */
 class ProductCategory
 {
@@ -16,11 +19,15 @@ class ProductCategory
      * @ORM\Column(type="integer")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
+     *
+     * @Serializer\Expose
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=100, nullable=false)
+     *
+     * @Serializer\Expose
      */
     private $name;
 
