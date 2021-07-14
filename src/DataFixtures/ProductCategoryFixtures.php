@@ -9,16 +9,16 @@ use Doctrine\Persistence\ObjectManager;
 
 class ProductCategoryFixtures extends Fixture
 {
-    public const PRODUCT_CATEGORY_1_REFERENCE = 'product-category-1';
+    public const SMARTPHONE_CATEGORY_REFERENCE = 'smartphone-category';
 
     public function load(ObjectManager $manager)
     {
-        $productCategory1 = new ProductCategory();
-        $productCategory1->setName('Smartphone');
-        $manager->persist($productCategory1);
+        $smartphoneCategory = new ProductCategory();
+        $smartphoneCategory->setName('Smartphone');
+        $manager->persist($smartphoneCategory);
 
         $manager->flush();
 
-        $this->addReference(self::PRODUCT_CATEGORY_1_REFERENCE, $productCategory1);
+        $this->addReference(self::SMARTPHONE_CATEGORY_REFERENCE, $smartphoneCategory);
     }
 }
