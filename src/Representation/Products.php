@@ -9,12 +9,12 @@ use Pagerfanta\Pagerfanta;
 class Products
 {
     /**
-     * @Serializer\Groups({"GET_LIST"})
+     * @Serializer\Groups({"GET_PRODUCT_LIST"})
      * @Serializer\Type("array<App\Entity\Product>")
      */
     public $data;
     /**
-     * @Serializer\Groups({"GET_LIST"})
+     * @Serializer\Groups({"GET_PRODUCT_LIST"})
      */
     public $meta;
 

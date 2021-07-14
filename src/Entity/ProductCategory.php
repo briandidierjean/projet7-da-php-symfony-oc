@@ -18,14 +18,14 @@ class ProductCategory
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
      *
-     * @Serializer\Groups({"GET_LIST", "GET_SHOW"})
+     * @Serializer\Groups({"GET_PRODUCT_LIST", "GET_PRODUCT_SHOW"})
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=100, nullable=false)
      *
-     * @Serializer\Groups({"GET_LIST", "GET_SHOW"})
+     * @Serializer\Groups({"GET_PRODUCT_LIST", "GET_PRODUCT_SHOW"})
      */
     private $name;
 
