@@ -3,18 +3,19 @@
 
 namespace App\Representation;
 
+
 use JMS\Serializer\Annotation as Serializer;
 use Pagerfanta\Pagerfanta;
 
-class Products
+class Users
 {
     /**
-     * @Serializer\Groups({"GET_PRODUCT_LIST"})
-     * @Serializer\Type("array<App\Entity\Product>")
+     * @Serializer\Groups({"GET_USER_LIST"})
+     * @Serializer\Type("array<App\Entity\User>")
      */
     public $data;
     /**
-     * @Serializer\Groups({"GET_PRODUCT_LIST"})
+     * @Serializer\Groups({"GET_USER_LIST"})
      */
     public $meta;
 

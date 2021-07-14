@@ -3,7 +3,6 @@
 
 namespace App\Controller;
 
-
 use App\Entity\Product;
 use App\Representation\Products;
 use FOS\RestBundle\Controller\AbstractFOSRestController;
@@ -30,7 +29,7 @@ class ProductController extends AbstractFOSRestController
      *     description="The maximum of products per page."
      * )
      *
-     * @View(serializerGroups={"GET_LIST"})
+     * @View(serializerGroups={"GET_PRODUCT_LIST"})
      */
     public function listAction(ParamFetcherInterface $paramFetcher)
     {
@@ -49,7 +48,7 @@ class ProductController extends AbstractFOSRestController
      *     requirements={"id"="\d+"}
      * )
      *
-     * @View(serializerGroups={"GET_SHOW"})
+     * @View(serializerGroups={"GET_PRODUCT_SHOW"})
      */
     public function showAction(Product $product)
     {

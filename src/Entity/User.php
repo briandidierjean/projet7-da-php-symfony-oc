@@ -5,9 +5,10 @@ namespace App\Entity;
 
 use DateTime;
 use Doctrine\ORM\Mapping as ORM;
+use JMS\Serializer\Annotation as Serializer;
 
 /**
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
  * @ORM\Table(name="users")
  */
 class User
@@ -16,31 +17,43 @@ class User
      * @ORM\Column(type="integer")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
+     *
+     * @Serializer\Groups({"GET_USER_LIST"})
      */
     private $id;
 
     /**
      * @ORM\ManyToOne(targetEntity="Customer", inversedBy="users", cascade={"all"}, fetch="EAGER")
+     *
+     * @Serializer\Groups({"GET_USER_LIST"})
      */
     private $customer;
 
     /**
      * @ORM\Column(type="string", length=100, nullable=false)
+     *
+     * @Serializer\Groups({"GET_USER_LIST"})
      */
     private $phone;
 
     /**
      * @ORM\Column(type="string", length=100, nullable=false)
+     *
+     * @Serializer\Groups({"GET_USER_LIST"})
      */
     private $email;
 
     /**
      * @ORM\Column(type="string", length=100, nullable=true)
+     *
+     * @Serializer\Groups({"GET_USER_LIST"})
      */
     private $firstName;
 
     /**
      * @ORM\Column(type="string", length=100, nullable=true)
+     *
+     * @Serializer\Groups({"GET_USER_LIST"})
      */
     private $lastName;
 
