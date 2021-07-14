@@ -3,15 +3,19 @@
 
 namespace App\Representation;
 
-use JMS\Serializer\Annotation\Type;
+use JMS\Serializer\Annotation as Serializer;
 use Pagerfanta\Pagerfanta;
 
 class Products
 {
     /**
-     * @Type("array<App\Entity\Product>")
+     * @Serializer\Groups({"GET_LIST"})
+     * @Serializer\Type("array<App\Entity\Product>")
      */
     public $data;
+    /**
+     * @Serializer\Groups({"GET_LIST"})
+     */
     public $meta;
 
     public function __construct(Pagerfanta $pager)
@@ -27,7 +31,7 @@ class Products
     public function addMeta($name, $value)
     {
         if (isset($this->meta[$name])) {
-            throw new \ÒLogicException(sprintf('This meta already exists. You are trying to override this meta,
+            throw new \LogicException(sprintf('This meta already exists. You are trying to override this meta,
             use the setMeta method instead for the %s meta.', $name));
         }
 

@@ -9,8 +9,6 @@ use JMS\Serializer\Annotation as Serializer;
 /**
  * @ORM\Entity(repositoryClass="App\Repository\ProductRepository")
  * @ORM\Table(name="products")
- *
- * @Serializer\ExclusionPolicy("ALL")
  */
 class Product
 {
@@ -19,49 +17,49 @@ class Product
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
      *
-     * @Serializer\Expose
+     * @Serializer\Groups({"GET_LIST", "GET_SHOW"})
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=50, unique=true, nullable=false)
      *
-     * @Serializer\Expose
+     * @Serializer\Groups({"GET_LIST", "GET_SHOW"})
      */
     private $reference;
 
     /**
      * @ORM\Column(type="string", length=100, nullable=false)
      *
-     * @Serializer\Expose
+     * @Serializer\Groups({"GET_LIST", "GET_SHOW"})
      */
     private $name;
 
     /**
      * @ORM\Column(type="string", length=100, nullable=true)
      *
-     * @Serializer\Expose
+     * @Serializer\Groups({"GET_LIST", "GET_SHOW"})
      */
     private $brand;
 
     /**
      * @ORM\Column(type="text", nullable=true)
      *
-     * @Serializer\Expose
+     * @Serializer\Groups({"GET_SHOW"})
      */
     private $description;
 
     /**
      * @ORM\ManyToOne(targetEntity="ProductCategory", inversedBy="products", cascade={"persist"}, fetch="EAGER")
      *
-     * @Serializer\Expose
+     * @Serializer\Groups({"GET_LIST", "GET_SHOW"})
      */
     private $category;
 
     /**
      * @ORM\Column(type="integer", nullable=false)
      *
-     * @Serializer\Expose
+     * @Serializer\Groups({"GET_LIST", "GET_SHOW"})
      * @Serializer\Accessor(getter="getUnitPriceOffTax")
      */
     private $unitPriceOffTax;
@@ -69,7 +67,7 @@ class Product
     /**
      * @ORM\Column(name="vat_rate_100", type="integer", nullable=true)
      *
-     * @Serializer\Expose
+     * @Serializer\Groups({"GET_SHOW"})
      * @Serializer\SerializedName("vat_rate_100")
      * @Serializer\Accessor(getter="getVATRate100")
      */
@@ -78,7 +76,7 @@ class Product
     /**
      * @ORM\Column(type="integer", nullable=false)
      *
-     * @Serializer\Expose
+     * @Serializer\Groups({"GET_LIST", "GET_SHOW"})
      */
     private $stock;
 

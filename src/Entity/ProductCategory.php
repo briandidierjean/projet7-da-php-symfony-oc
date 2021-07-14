@@ -10,8 +10,6 @@ use JMS\Serializer\Annotation as Serializer;
 /**
  * @ORM\Entity
  * @ORM\Table(name="product_categories")
- *
- * @Serializer\ExclusionPolicy("ALL")
  */
 class ProductCategory
 {
@@ -20,14 +18,14 @@ class ProductCategory
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
      *
-     * @Serializer\Expose
+     * @Serializer\Groups({"GET_LIST", "GET_SHOW"})
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=100, nullable=false)
      *
-     * @Serializer\Expose
+     * @Serializer\Groups({"GET_LIST", "GET_SHOW"})
      */
     private $name;
 
