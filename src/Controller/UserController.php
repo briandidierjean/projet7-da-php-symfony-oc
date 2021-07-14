@@ -8,6 +8,7 @@ use App\Entity\User;
 use App\Exception\ResourceValidationException;
 use App\Representation\Users;
 use FOS\RestBundle\Controller\AbstractFOSRestController;
+use FOS\RestBundle\Controller\Annotations\Delete;
 use FOS\RestBundle\Controller\Annotations\Get;
 use FOS\RestBundle\Controller\Annotations\Post;
 use FOS\RestBundle\Controller\Annotations\QueryParam;
@@ -110,5 +111,22 @@ class UserController extends AbstractFOSRestController
                 ]
             )]
         );
+    }
+
+    /**
+     * @Delete(
+     *     path="/customers/{customer_id}/users/{user_id}",
+     *     name="user_delete",
+     *     requirements={"customerId"="\d+", "userId"="\d+"}
+     * )
+     *
+     * @ParamConverter("user", options={"id" = "user_id"})
+     *
+     * @View(StatusCode=204)
+     */
+    public function deleteAction(User $user)
+    {
+        $entityManager = $this->getDoctrine()->getManager();
+        $entityManager->remove($user);
     }
 }
