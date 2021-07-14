@@ -6,6 +6,7 @@ namespace App\Entity;
 use DateTime;
 use Doctrine\ORM\Mapping as ORM;
 use JMS\Serializer\Annotation as Serializer;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
@@ -33,6 +34,9 @@ class User
      * @ORM\Column(type="string", length=100, nullable=false)
      *
      * @Serializer\Groups({"GET_USER_LIST", "GET_USER_SHOW"})
+     *
+     * @Assert\NotBlank
+     * @Assert\Regex(pattern="/0[0-9]{9}/", message="Your phone number is not correctly formatted.")
      */
     private $phone;
 
@@ -40,6 +44,10 @@ class User
      * @ORM\Column(type="string", length=100, nullable=false)
      *
      * @Serializer\Groups({"GET_USER_LIST", "GET_USER_SHOW"})
+     *
+     * @Assert\NotBlank
+     * @Assert\Email(message="Your email '{{ value }}' is not a valid email.")
+     * @Assert\Length(max=100, maxMessage="Your email cannot be longer than {{ limit }} characters")
      */
     private $email;
 
@@ -47,6 +55,14 @@ class User
      * @ORM\Column(type="string", length=100, nullable=true)
      *
      * @Serializer\Groups({"GET_USER_LIST", "GET_USER_SHOW"})
+     *
+     * @Assert\NotBlank
+     * @Assert\Length(
+     *     min=3,
+     *     max=30,
+     *     maxMessage="Your first name must be at least {{ limit }} characters long",
+     *     maxMessage="Your first name cannot be longer than {{ limit }} characters"
+     * )
      */
     private $firstName;
 
@@ -54,6 +70,14 @@ class User
      * @ORM\Column(type="string", length=100, nullable=true)
      *
      * @Serializer\Groups({"GET_USER_LIST", "GET_USER_SHOW"})
+     *
+     * @Assert\NotBlank
+     * @Assert\Length(
+     *     min=3,
+     *     max=30,
+     *     maxMessage="Your last name must be at least {{ limit }} characters long",
+     *     maxMessage="Your last name cannot be longer than {{ limit }} characters"
+     * )
      */
     private $lastName;
 

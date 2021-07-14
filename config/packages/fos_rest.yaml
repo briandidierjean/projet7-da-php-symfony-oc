@@ -16,4 +16,4 @@ fos_rest:
   exception:
     enabled: true
     codes:
-      { \Exception: 500 }
+      { App\Exception\ResourceValidationException: 400, \Exception: 500 }
