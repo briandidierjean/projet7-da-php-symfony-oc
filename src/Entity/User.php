@@ -60,7 +60,7 @@ class User
      * @Assert\Length(
      *     min=3,
      *     max=30,
-     *     maxMessage="Your first name must be at least {{ limit }} characters long"
+     *     maxMessage="Your first name must be at least {{ limit }} characters long",
      *     maxMessage="Your first name cannot be longer than {{ limit }} characters"
      * )
      */
@@ -75,7 +75,7 @@ class User
      * @Assert\Length(
      *     min=3,
      *     max=30,
-     *     maxMessage="Your last name must be at least {{ limit }} characters long"
+     *     maxMessage="Your last name must be at least {{ limit }} characters long",
      *     maxMessage="Your last name cannot be longer than {{ limit }} characters"
      * )
      */

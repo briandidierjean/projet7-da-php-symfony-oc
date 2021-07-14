@@ -38,11 +38,15 @@ class Customer
 
     /**
      * @ORM\Column(type="string", nullable=false)
+     *
+     * @Serializer\Exclude
      */
     private $password;
 
     /**
      * @ORM\OneToMany(targetEntity="User", mappedBy="customer", cascade={"persist"})
+     *
+     * @Serializer\Exclude
      */
     private $users;
 
