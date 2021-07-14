@@ -18,47 +18,49 @@ class User
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
      *
-     * @Serializer\Groups({"GET_USER_LIST"})
+     * @Serializer\Groups({"GET_USER_LIST", "GET_USER_SHOW"})
      */
     private $id;
 
     /**
      * @ORM\ManyToOne(targetEntity="Customer", inversedBy="users", cascade={"all"}, fetch="EAGER")
      *
-     * @Serializer\Groups({"GET_USER_LIST"})
+     * @Serializer\Groups({"GET_USER_LIST", "GET_USER_SHOW"})
      */
     private $customer;
 
     /**
      * @ORM\Column(type="string", length=100, nullable=false)
      *
-     * @Serializer\Groups({"GET_USER_LIST"})
+     * @Serializer\Groups({"GET_USER_LIST", "GET_USER_SHOW"})
      */
     private $phone;
 
     /**
      * @ORM\Column(type="string", length=100, nullable=false)
      *
-     * @Serializer\Groups({"GET_USER_LIST"})
+     * @Serializer\Groups({"GET_USER_LIST", "GET_USER_SHOW"})
      */
     private $email;
 
     /**
      * @ORM\Column(type="string", length=100, nullable=true)
      *
-     * @Serializer\Groups({"GET_USER_LIST"})
+     * @Serializer\Groups({"GET_USER_LIST", "GET_USER_SHOW"})
      */
     private $firstName;
 
     /**
      * @ORM\Column(type="string", length=100, nullable=true)
      *
-     * @Serializer\Groups({"GET_USER_LIST"})
+     * @Serializer\Groups({"GET_USER_LIST", "GET_USER_SHOW"})
      */
     private $lastName;
 
     /**
      * @ORM\Column(type="datetime", nullable=false)
+     *
+     * @Serializer\Groups({"GET_USER_SHOW"})
      */
     private $registeredAt;
 

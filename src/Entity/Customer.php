@@ -18,21 +18,21 @@ class Customer
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
      *
-     * @Serializer\Groups({"GET_USER_LIST"})
+     * @Serializer\Groups({"GET_USER_LIST", "GET_USER_SHOW"})
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=50, unique=true, nullable=false)
      *
-     * @Serializer\Groups({"GET_USER_LIST"})
+     * @Serializer\Groups({"GET_USER_LIST", "GET_USER_SHOW"})
      */
     private $customerNumber;
 
     /**
      * @ORM\Column(type="string", length=100, nullable=false)
      *
-     * @Serializer\Groups({"GET_USER_LIST"})
+     * @Serializer\Groups({"GET_USER_LIST", "GET_USER_SHOW"})
      */
     private $companyName;
 

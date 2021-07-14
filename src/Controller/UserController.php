@@ -11,6 +11,7 @@ use FOS\RestBundle\Controller\Annotations\Get;
 use FOS\RestBundle\Controller\Annotations\QueryParam;
 use FOS\RestBundle\Controller\Annotations\View;
 use FOS\RestBundle\Request\ParamFetcherInterface;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 
 class UserController extends AbstractFOSRestController
 {
@@ -45,5 +46,21 @@ class UserController extends AbstractFOSRestController
         );
 
         return new Users($pager);
+    }
+
+    /**
+     * @Get(
+     *     path="/customers/{customer_id}/users/{user_id}",
+     *     name="user_show",
+     *     requirements={"customerId"="\d+", "userId"="\d+"}
+     * )
+     *
+     * @ParamConverter("user", options={"id" = "user_id"})
+     *
+     * @View(serializerGroups={"GET_USER_SHOW"})
+     */
+    public function showAction(User $user)
+    {
+        return $user;
     }
 }
