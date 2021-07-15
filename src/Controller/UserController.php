@@ -5,6 +5,7 @@ namespace App\Controller;
 
 use App\Entity\Customer;
 use App\Entity\User;
+use App\Exception\ForbiddenException;
 use App\Exception\ResourceValidationException;
 use App\Representation\Users;
 use FOS\RestBundle\Controller\AbstractFOSRestController;
@@ -16,6 +17,7 @@ use FOS\RestBundle\Controller\Annotations\View;
 use FOS\RestBundle\Request\ParamFetcherInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Validator\ConstraintViolationList;
 
@@ -43,8 +45,17 @@ class UserController extends AbstractFOSRestController
      *
      * @View(serializerGroups={"GET_USER_LIST"})
      */
-    public function listAction(Customer $customer, ParamFetcherInterface $paramFetcher)
+    public function listAction(Customer $customer = null, ParamFetcherInterface $paramFetcher)
     {
+        if (!$customer || $this->getUser()->getId() !== $customer->getId()) {
+            $message = sprintf(
+                'These users do not belong to %s.',
+                $this->getUser()->getCompanyName()
+            );
+
+            throw new ForbiddenException($message);
+        }
+
         $pager = $this->getDoctrine()->getRepository(User::class)->search(
             $customer,
             $paramFetcher->get('offset'),
@@ -61,29 +72,50 @@ class UserController extends AbstractFOSRestController
      *     requirements={"customerId"="\d+", "userId"="\d+"}
      * )
      *
+     * @ParamConverter("customer", options={"id" = "customer_id"})
      * @ParamConverter("user", options={"id" = "user_id"})
      *
      * @View(serializerGroups={"GET_USER_SHOW"})
      */
-    public function showAction(User $user)
+    public function showAction(Customer $customer = null, User $user = null)
     {
+        if (!$customer || $this->getUser()->getId() !== $customer->getId()) {
+            $message = sprintf(
+                'This user does not belong to %s.',
+                $this->getUser()->getCompanyName()
+            );
+            throw new ForbiddenException($message);
+        }
+
+        if (!$user) {
+            throw new NotFoundHttpException('Not Found');
+        }
+
         return $user;
     }
 
     /**
      * @Post(path="/customers/{id}/users", name="user_create")
      *
-     * @View(StatusCode=201)
-     *
      * @ParamConverter("user", converter="fos_rest.request_body")
+     *
+     * @View
      */
-    public function createAction(User $user, Customer $customer, ConstraintViolationList $violations)
+    public function createAction(User $user, Customer $customer = null, ConstraintViolationList $violations)
     {
+        if (!$customer || $this->getUser()->getId() !== $customer->getId()) {
+            $message = sprintf(
+                '%s cannot add users for another customer.',
+                $this->getUser()->getCompanyName()
+            );
+            throw new ForbiddenException($message);
+        }
+
         if (count($violations)) {
             $message = 'The JSON sent contains invalid data. ';
             foreach ($violations as $violation) {
                 $message .= sprintf(
-                    'Field %s: %s ',
+                    'Field %s: %s. ',
                     $violation->getPropertyPath(),
                     $violation->getMessage()
                 );
@@ -102,14 +134,11 @@ class UserController extends AbstractFOSRestController
         return $this->view(
             $user,
             Response::HTTP_CREATED,
-            ['Location' => $this->generateUrl(
-                'user_show',
-                [
-                    'user_id' => $user->getId(),
-                    'customer_id' => $customer->getId(),
-                    UrlGeneratorInterface::ABSOLUTE_URL
-                ]
-            )]
+            ['Location' => $this->generateUrl('user_show', [
+                'user_id' => $user->getId(),
+                'customer_id' => $customer->getId(),
+                UrlGeneratorInterface::ABSOLUTE_URL
+            ])]
         );
     }
 
@@ -120,12 +149,25 @@ class UserController extends AbstractFOSRestController
      *     requirements={"customerId"="\d+", "userId"="\d+"}
      * )
      *
+     * @ParamConverter("customer", options={"id" = "customer_id"})
      * @ParamConverter("user", options={"id" = "user_id"})
      *
      * @View(StatusCode=204)
      */
-    public function deleteAction(User $user)
+    public function deleteAction(Customer $customer = null, User $user = null)
     {
+        if (!$customer || $this->getUser()->getId() !== $customer->getId()) {
+            $message = sprintf(
+                '%s cannot delete users of another customer.',
+                $this->getUser()->getCompanyName()
+            );
+            throw new ForbiddenException($message);
+        }
+
+        if (!$user) {
+            throw new NotFoundHttpException('Not Found');
+        }
+
         $entityManager = $this->getDoctrine()->getManager();
         $entityManager->remove($user);
     }
