@@ -6,12 +6,13 @@ namespace App\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use JMS\Serializer\Annotation as Serializer;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * @ORM\Entity
  * @ORM\Table(name="customers")
  */
-class Customer
+class Customer implements UserInterface
 {
     /**
      * @ORM\Column(type="integer")
@@ -42,6 +43,11 @@ class Customer
      * @Serializer\Exclude
      */
     private $password;
+
+    /**
+     * @ORM\Column(type="json")
+     */
+    private $roles = [];
 
     /**
      * @ORM\OneToMany(targetEntity="User", mappedBy="customer", cascade={"persist"})
@@ -84,6 +90,16 @@ class Customer
         return $this;
     }
 
+    public function getUserIdentifier(): string
+    {
+        return $this->getCustomerNumber();
+    }
+
+    public function getUsername(): string
+    {
+        return $this->getCustomerNumber();
+    }
+
     public function getPassword(): string
     {
         return $this->password;
@@ -96,8 +112,35 @@ class Customer
         return $this;
     }
 
+    public function getRoles(): array
+    {
+        $roles = $this->roles;
+
+        if (empty($roles)) {
+            $roles[] = 'ROLE_USER';
+        }
+
+        return array_unique($roles);
+    }
+
+    public function setRoles(array $roles): self
+    {
+        $this->roles = $roles;
+
+        return $this;
+    }
+
     public function getUsers(): ArrayCollection
     {
         return $this->users;
+    }
+
+    public function getSalt()
+    {
+        return null;
+    }
+
+    public function eraseCredentials()
+    {
     }
 }
