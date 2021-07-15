@@ -11,7 +11,7 @@ use Faker;
 
 class CustomerFixtures extends Fixture
 {
-    public const ORANGE_CUSTOMER_REFERENCE = 'orange-customer';
+    public const OCTELECOM_CUSTOMER_REFERENCE = 'orange-customer';
 
     private $faker;
 
@@ -23,14 +23,14 @@ class CustomerFixtures extends Fixture
 
     public function load(ObjectManager $manager)
     {
-        $orangeCustomer = new Customer();
-        $orangeCustomer->setCustomerNumber($this->faker->unique()->numberBetween(0000000000, 9999999999));
-        $orangeCustomer->setCompanyName('Orange');
-        $orangeCustomer->setPassword('password');
-        $manager->persist($orangeCustomer);
+        $octelecomCustomer = new Customer();
+        $octelecomCustomer->setCustomerNumber($this->faker->unique()->numberBetween(0000000000, 9999999999));
+        $octelecomCustomer->setCompanyName('OCTelecom');
+        $octelecomCustomer->setPassword('password');
+        $manager->persist($octelecomCustomer);
 
         $manager->flush();
 
-        $this->addReference(self::ORANGE_CUSTOMER_REFERENCE, $orangeCustomer);
+        $this->addReference(self::OCTELECOM_CUSTOMER_REFERENCE, $octelecomCustomer);
     }
 }

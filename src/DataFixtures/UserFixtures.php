@@ -32,7 +32,7 @@ class UserFixtures extends Fixture
     {
         for ($i = 0; $i < 50; $i++) {
             $user = new User();
-            $user->setCustomer($this->getReference(CustomerFixtures::ORANGE_CUSTOMER_REFERENCE));
+            $user->setCustomer($this->getReference(CustomerFixtures::OCTELECOM_CUSTOMER_REFERENCE));
             $user->setPhone($this->formatPhoneNumber($this->faker->mobileNumber));
             $user->setEmail($this->faker->safeEmail);
             $user->setFirstName($this->faker->firstName);
