@@ -170,5 +170,6 @@ class UserController extends AbstractFOSRestController
 
         $entityManager = $this->getDoctrine()->getManager();
         $entityManager->remove($user);
+        $entityManager->flush();
     }
 }

@@ -51,7 +51,7 @@ class Customer implements UserInterface, PasswordAuthenticatedUserInterface
     private $roles = [];
 
     /**
-     * @ORM\OneToMany(targetEntity="User", mappedBy="customer", cascade={"persist"})
+     * @ORM\OneToMany(targetEntity="User", mappedBy="customer")
      *
      * @Serializer\Exclude
      */

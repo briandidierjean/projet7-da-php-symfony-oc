@@ -66,7 +66,8 @@ class Product
     private $description;
 
     /**
-     * @ORM\ManyToOne(targetEntity="ProductCategory", inversedBy="products", cascade={"persist"}, fetch="EAGER")
+     * @ORM\ManyToOne(targetEntity="ProductCategory", inversedBy="products", fetch="EAGER")
+     * @ORM\JoinColumn(name="category_id", referencedColumnName="id")
      */
     private $category;
 

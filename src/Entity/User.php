@@ -66,7 +66,8 @@ class User
     private $id;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Customer", inversedBy="users", cascade={"all"}, fetch="EAGER")
+     * @ORM\ManyToOne(targetEntity="Customer", inversedBy="users", fetch="EAGER")
+     * @ORM\JoinColumn(name="customer_id", referencedColumnName="id")
      */
     private $customer;
 
