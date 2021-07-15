@@ -10,10 +10,17 @@ use FOS\RestBundle\Controller\Annotations\Get;
 use FOS\RestBundle\Controller\Annotations\QueryParam;
 use FOS\RestBundle\Controller\Annotations\View;
 use FOS\RestBundle\Request\ParamFetcherInterface;
+use OpenApi\Annotations as OA;
+use Nelmio\ApiDocBundle\Annotation\Model;
+use Nelmio\ApiDocBundle\Annotation\Security;
 
 class ProductController extends AbstractFOSRestController
 {
     /**
+     * Product List
+     *
+     * Return the list of all products.
+     *
      * @Get(path="/products", name="product_list")
      *
      * @QueryParam(
@@ -30,6 +37,21 @@ class ProductController extends AbstractFOSRestController
      * )
      *
      * @View(serializerGroups={"GET_PRODUCT_LIST"})
+     *
+     * @OA\Tag(name="Products")
+     * @Security(name="Bearer")
+     * @OA\Response(
+     *     response=200,
+     *     description="Return the list of all products.",
+     *     @OA\JsonContent(
+     *         type="array",
+     *         @OA\Items(ref=@Model(type=Products::class, groups={"GET_PRODUCT_LIST"}, ))
+     *     )
+     * )
+     * @OA\Response(
+     *     response=401,
+     *     description="JWT Token not found or expired."
+     * )
      */
     public function listAction(ParamFetcherInterface $paramFetcher)
     {
@@ -42,6 +64,10 @@ class ProductController extends AbstractFOSRestController
     }
 
     /**
+     * Product Details
+     *
+     * Return the details of a product
+     *
      * @Get(
      *     path="/products/{id}",
      *     name="product_show",
@@ -49,6 +75,18 @@ class ProductController extends AbstractFOSRestController
      * )
      *
      * @View(serializerGroups={"GET_PRODUCT_SHOW"})
+     *
+     * @OA\Tag(name="Products")
+     * @Security(name="Bearer")
+     * @OA\Response(
+     *     response=200,
+     *     description="Return the details of a product.",
+     *     @OA\JsonContent(ref=@Model(type=Product::class, groups={"GET_PRODUCT_SHOW"}))
+     * )
+     * @OA\Response(
+     *     response=401,
+     *     description="JWT Token not found or expired."
+     * )
      */
     public function showAction(Product $product)
     {
