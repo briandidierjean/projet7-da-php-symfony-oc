@@ -53,6 +53,11 @@ use Symfony\Component\Validator\Constraints as Assert;
  *     embedded=@Hateoas\Embedded("expr(object.getCustomer())"),
  *     exclusion=@Hateoas\Exclusion(groups={"GET_USER_LIST", "GET_USER_SHOW"})
  * )
+ * @Hateoas\Relation(
+ *     "authenticated_customer",
+ *     embedded=@Hateoas\Embedded("expr(service('security.token_storage').getToken().getUser())"),
+ *     exclusion=@Hateoas\Exclusion(groups={"GET_USER_SHOW"})
+ * )
  */
 class User
 {
@@ -66,7 +71,10 @@ class User
     private $id;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Customer", inversedBy="users", cascade={"all"}, fetch="EAGER")
+     * @ORM\ManyToOne(targetEntity="Customer", inversedBy="users", fetch="EAGER")
+     * @ORM\JoinColumn(name="customer_id", referencedColumnName="id")
+     *
+     * @Serializer\Exclude
      */
     private $customer;
 

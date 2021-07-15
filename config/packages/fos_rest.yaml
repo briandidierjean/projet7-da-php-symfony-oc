@@ -15,7 +15,8 @@ fos_rest:
   param_fetcher_listener: force
   exception:
     enabled: true
+    map_exception_codes: true
     codes:
-      { App\Exception\ResourceValidationException: 400, \Exception: 500 }
+      { App\Exception\ResourceValidationException: 400, App\Exception\ForbiddenException: 403 }
     messages:
-      { App\Exception\ResourceValidationException: true }
+      { App\Exception\ResourceValidationException: true, App\Exception\ForbiddenException: true }
