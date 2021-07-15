@@ -20,21 +20,36 @@ class Customer implements UserInterface, PasswordAuthenticatedUserInterface
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
      *
-     * @Serializer\Groups({"GET_USER_LIST", "GET_USER_SHOW"})
+     * @Serializer\Groups({
+     *     "GET_USER_LIST",
+     *     "GET_USER_SHOW",
+     *     "GET_PRODUCT_LIST",
+     *     "GET_PRODUCT_SHOW"
+     * })
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=50, unique=true, nullable=false)
      *
-     * @Serializer\Groups({"GET_USER_LIST", "GET_USER_SHOW"})
+     * @Serializer\Groups({
+     *     "GET_USER_LIST",
+     *     "GET_USER_SHOW",
+     *     "GET_PRODUCT_LIST",
+     *     "GET_PRODUCT_SHOW"
+     * })
      */
     private $customerNumber;
 
     /**
      * @ORM\Column(type="string", length=100, nullable=false)
      *
-     * @Serializer\Groups({"GET_USER_LIST", "GET_USER_SHOW"})
+     * @Serializer\Groups({
+     *     "GET_USER_LIST",
+     *     "GET_USER_SHOW",
+     *     "GET_PRODUCT_LIST",
+     *     "GET_PRODUCT_SHOW"
+     * })
      */
     private $companyName;
 
@@ -46,7 +61,7 @@ class Customer implements UserInterface, PasswordAuthenticatedUserInterface
     private $password;
 
     /**
-     * @ORM\Column(type="json")
+     * @Serializer\Exclude
      */
     private $roles = [];
 
@@ -115,13 +130,7 @@ class Customer implements UserInterface, PasswordAuthenticatedUserInterface
 
     public function getRoles(): array
     {
-        $roles = $this->roles;
-
-        if (empty($roles)) {
-            $roles[] = 'ROLE_USER';
-        }
-
-        return array_unique($roles);
+        return $this->roles;
     }
 
     public function setRoles(array $roles): self

@@ -25,6 +25,11 @@ use JMS\Serializer\Annotation as Serializer;
  *     embedded=@Hateoas\Embedded("expr(object.getCategory())"),
  *     exclusion=@Hateoas\Exclusion(groups={"GET_PRODUCT_LIST", "GET_PRODUCT_SHOW"})
  * )
+ * @Hateoas\Relation(
+ *     "authenticated_customer",
+ *     embedded=@Hateoas\Embedded("expr(service('security.token_storage').getToken().getUser())"),
+ *     exclusion=@Hateoas\Exclusion(groups={"GET_PRODUCT_SHOW"})
+ * )
  */
 class Product
 {
