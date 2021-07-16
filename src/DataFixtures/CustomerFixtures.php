@@ -33,18 +33,9 @@ class CustomerFixtures extends Fixture
         $octelecomCustomer->setPassword(
             $this->userPasswordHasher->hashPassword($octelecomCustomer, 'bilemo')
         );
+        $this->addReference(self::OCTELECOM_CUSTOMER_REFERENCE, $octelecomCustomer);
         $manager->persist($octelecomCustomer);
 
-        $otherCustomer = new Customer();
-        $otherCustomer->setCustomerNumber($this->faker->unique()->numberBetween(0000000000, 9999999999));
-        $otherCustomer->setCompanyName('Other');
-        $otherCustomer->setPassword(
-            $this->userPasswordHasher->hashPassword($otherCustomer, 'bilemo')
-        );
-        $manager->persist($otherCustomer);
-
         $manager->flush();
-
-        $this->addReference(self::OCTELECOM_CUSTOMER_REFERENCE, $octelecomCustomer);
     }
 }
