@@ -20,7 +20,6 @@ services:
 
   phpmyadmin:
     image: phpmyadmin
-    platform: linux/x86_64
     container_name: phpmyadmin_docker_symfony
     restart: always
     depends_on:
@@ -37,7 +36,6 @@ services:
 
   www:
     build: ./
-    platform: linux/x86_64
     container_name: www_docker-symfony
     ports:
       - 8000:8000
