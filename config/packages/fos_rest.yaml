@@ -19,4 +19,8 @@ fos_rest:
     codes:
       { App\Exception\ResourceValidationException: 400, App\Exception\ForbiddenException: 403 }
     messages:
-      { App\Exception\ResourceValidationException: true, App\Exception\ForbiddenException: true }
+      {
+        App\Exception\ResourceValidationException: true,
+        App\Exception\ForbiddenException: true,
+        Symfony\Component\HttpKernel\Exception\NotFoundHttpException: true
+      }

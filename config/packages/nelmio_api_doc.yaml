@@ -11,4 +11,4 @@ nelmio_api_doc:
                     bearerFormat: JWT
     areas:
         path_patterns:
-            - ^/(?!doc$|doc.json$|_)
+            - ^/(?!_|doc$|doc.json$)

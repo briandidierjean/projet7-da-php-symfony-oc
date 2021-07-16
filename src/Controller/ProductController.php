@@ -13,6 +13,7 @@ use FOS\RestBundle\Request\ParamFetcherInterface;
 use OpenApi\Annotations as OA;
 use Nelmio\ApiDocBundle\Annotation\Model;
 use Nelmio\ApiDocBundle\Annotation\Security;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class ProductController extends AbstractFOSRestController
 {
@@ -38,11 +39,21 @@ class ProductController extends AbstractFOSRestController
      *
      * @View(serializerGroups={"GET_PRODUCT_LIST"})
      *
-     * @OA\Tag(name="Products")
+     * @OA\Tag(name="Product")
      * @Security(name="Bearer")
+     * @OA\Parameter(
+     *     name="offset",
+     *     in="query",
+     *     @OA\Schema(type="integer")
+     * )
+     * @OA\Parameter(
+     *     name="limit",
+     *     in="query",
+     *     @OA\Schema(type="integer")
+     * )
      * @OA\Response(
      *     response=200,
-     *     description="Return the list of all products.",
+     *     description="Return the list of the products.",
      *     @OA\JsonContent(
      *         type="array",
      *         @OA\Items(ref=@Model(type=Products::class, groups={"GET_PRODUCT_LIST"}, ))
@@ -50,7 +61,7 @@ class ProductController extends AbstractFOSRestController
      * )
      * @OA\Response(
      *     response=401,
-     *     description="JWT Token not found or expired."
+     *     description="The JWT Token is invalid."
      * )
      */
     public function listAction(ParamFetcherInterface $paramFetcher)
@@ -66,7 +77,7 @@ class ProductController extends AbstractFOSRestController
     /**
      * Product Details
      *
-     * Return the details of a product
+     * Return the details of a product.
      *
      * @Get(
      *     path="/products/{id}",
@@ -76,20 +87,34 @@ class ProductController extends AbstractFOSRestController
      *
      * @View(serializerGroups={"GET_PRODUCT_SHOW"})
      *
-     * @OA\Tag(name="Products")
+     * @OA\Tag(name="Product")
      * @Security(name="Bearer")
+     * @OA\Parameter(
+     *     name="id",
+     *     in="path",
+     *     description="The product ID.",
+     *     @OA\Schema(type="integer")
+     * )
      * @OA\Response(
      *     response=200,
-     *     description="Return the details of a product.",
-     *     @OA\JsonContent(ref=@Model(type=Product::class, groups={"GET_PRODUCT_SHOW"}))
+     *     description="Return the details of the product.",
+     *     @OA\JsonContent(ref=@Model(type=Product::class, groups={"GET_PRODUCT_SHOW"})),
      * )
      * @OA\Response(
      *     response=401,
-     *     description="JWT Token not found or expired."
+     *     description="The JWT Token is invalid."
+     * )
+     * @OA\Response(
+     *     response=404,
+     *     description="The product was not found."
      * )
      */
-    public function showAction(Product $product)
+    public function showAction(Product $product = null)
     {
+        if (!$product) {
+            throw new NotFoundHttpException('Product Not Found');
+        }
+
         return $product;
     }
 }
