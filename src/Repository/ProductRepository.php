@@ -5,14 +5,7 @@ namespace App\Repository;
 
 class ProductRepository extends AbstractRepository
 {
-    public function search(
-        $offset = 0,
-        $limit = 5,
-        $keyword = null,
-        $brand = null,
-        $category = null,
-        $in_stock = 'false'
-    )
+    public function search($offset, $limit, $keyword, $brand, $categoryName, $in_stock)
     {
         $queryBuilder = $this
             ->createQueryBuilder('p')
@@ -30,15 +23,15 @@ class ProductRepository extends AbstractRepository
         if ($brand) {
             $queryBuilder
                 ->andWhere('p.brand LIKE :brand')
-                ->setParameter('brand', $brand)
+                ->setParameter('brand', '%' . $brand . '%')
             ;
         }
 
-        if ($category) {
+        if ($categoryName) {
             $queryBuilder
                 ->join('p.category', 'c')
                 ->andWhere('c.name LIKE :category')
-                ->setParameter('category', $category)
+                ->setParameter('category', '%' . $categoryName . '%')
             ;
         }
 
