@@ -36,6 +36,30 @@ class ProductController extends AbstractFOSRestController
      *     default="5",
      *     description="The maximum of products per page."
      * )
+     * @QueryParam(
+     *     name="keyword",
+     *     requirements="[a-zA-Z0-9]*",
+     *     nullable=true,
+     *     description="The keyword to search for."
+     * )
+     * @QueryParam(
+     *     name="brand",
+     *     requirements="[a-zA-Z0-9]*",
+     *     nullable=true,
+     *     description="The brand to search for."
+     * )
+     * @QueryParam(
+     *     name="category",
+     *     requirements="[a-zA-Z0-9]*",
+     *     nullable=true,
+     *     description="The category name to search for."
+     * )
+     * @QueryParam(
+     *     name="in_stock",
+     *     requirements="^(true|false)$",
+     *     default="false",
+     *     description="Get only the products that are in stock."
+     * )
      *
      * @View(serializerGroups={"GET_PRODUCT_LIST"})
      *
@@ -50,6 +74,28 @@ class ProductController extends AbstractFOSRestController
      *     name="limit",
      *     in="query",
      *     @OA\Schema(type="integer")
+     * )
+     * @OA\Parameter(
+     *     name="keyword",
+     *     in="query"
+     * )
+     * @OA\Parameter(
+     *     name="brand",
+     *     in="query"
+     * )
+     * @OA\Parameter(
+     *     name="category",
+     *     in="query"
+     * )
+     * @OA\Parameter(
+     *     name="in_stock",
+     *     in="query",
+     *     @OA\Schema(type="boolean")
+     * )
+     * @OA\Parameter(
+     *     name="in_stock",
+     *     in="query",
+     *     @OA\Schema(type="boolean")
      * )
      * @OA\Response(
      *     response=200,
@@ -68,10 +114,19 @@ class ProductController extends AbstractFOSRestController
     {
         $pager = $this->getDoctrine()->getRepository(Product::class)->search(
             $paramFetcher->get('offset'),
-            $paramFetcher->get('limit')
+            $paramFetcher->get('limit'),
+            $paramFetcher->get('keyword'),
+            $paramFetcher->get('brand'),
+            $paramFetcher->get('category'),
+            $paramFetcher->get('in_stock')
         );
 
-        return new Products($pager);
+        return new Products(
+            $pager, $paramFetcher->get('keyword'),
+            $paramFetcher->get('brand'),
+            $paramFetcher->get('category'),
+            $paramFetcher->get('in_stock')
+        );
     }
 
     /**

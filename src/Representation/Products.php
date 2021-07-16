@@ -29,7 +29,13 @@ class Products
 
     public $meta;
 
-    public function __construct(Pagerfanta $pager)
+    public function __construct(
+        Pagerfanta $pager,
+        $keyword = null,
+        $brand = null,
+        $category = null,
+        $in_stock = 'false'
+    )
     {
         $this->data = $pager->getCurrentPageResults();
 
@@ -37,6 +43,10 @@ class Products
         $this->addMeta('current_items', count($pager->getCurrentPageResults()));
         $this->addMeta('total_items', $pager->getNbResults());
         $this->addMeta('offset', $pager->getCurrentPageOffsetStart());
+        if ($keyword) $this->addMeta('keyword', $keyword);
+        if ($brand) $this->addMeta('brand', $brand);
+        if ($category) $this->addMeta('category', $category);
+        if ($in_stock === 'true') $this->addMeta('in_stock', $in_stock);
     }
 
     public function addMeta($name, $value)

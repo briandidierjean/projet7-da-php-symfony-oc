@@ -10,6 +10,7 @@ class UserRepository extends AbstractRepository
     {
         $queryBuilder = $this
             ->createQueryBuilder('u')
+            ->select('u')
             ->join('u.customer', 'c')
             ->where('c.id = :customer')
             ->setParameter('customer', $customer->getId())
