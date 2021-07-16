@@ -49,6 +49,24 @@ class UserController extends AbstractFOSRestController
      *     default="10",
      *     description="The maximum of users per page."
      * )
+     * @QueryParam(
+     *     name="order",
+     *     requirements="asc|desc",
+     *     default="desc",
+     *     description="Sort order by user's registration date (asc or desc)."
+     * )
+     * @QueryParam(
+     *     name="first_name",
+     *     requirements="[a-zA-Z]*",
+     *     nullable=true,
+     *     description="The user first name to search for."
+     * )
+     * @QueryParam(
+     *     name="last_name",
+     *     requirements="[a-zA-Z]*",
+     *     nullable=true,
+     *     description="The user last name to search for."
+     * )
      *
      * @View(serializerGroups={"GET_USER_LIST"})
      *
@@ -98,10 +116,18 @@ class UserController extends AbstractFOSRestController
         $pager = $this->getDoctrine()->getRepository(User::class)->search(
             $customer,
             $paramFetcher->get('offset'),
-            $paramFetcher->get('limit')
+            $paramFetcher->get('limit'),
+            $paramFetcher->get('order'),
+            $paramFetcher->get('first_name'),
+            $paramFetcher->get('last_name')
         );
 
-        return new Users($pager);
+        return new Users(
+            $pager,
+            $paramFetcher->get('order'),
+            $paramFetcher->get('first_name'),
+            $paramFetcher->get('last_name')
+        );
     }
 
     /**

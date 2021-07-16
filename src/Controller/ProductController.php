@@ -36,6 +36,30 @@ class ProductController extends AbstractFOSRestController
      *     default="5",
      *     description="The maximum of products per page."
      * )
+     * @QueryParam(
+     *     name="keyword",
+     *     requirements="[a-zA-Z0-9]*",
+     *     nullable=true,
+     *     description="The product keyword to search for."
+     * )
+     * @QueryParam(
+     *     name="brand",
+     *     requirements="[a-zA-Z0-9]*",
+     *     nullable=true,
+     *     description="The product brand to search for."
+     * )
+     * @QueryParam(
+     *     name="category_name",
+     *     requirements="[a-zA-Z0-9]*",
+     *     nullable=true,
+     *     description="The product category name to search for."
+     * )
+     * @QueryParam(
+     *     name="in_stock",
+     *     requirements="true|false",
+     *     default="false",
+     *     description="Filter the products that are in stock (true or false)."
+     * )
      *
      * @View(serializerGroups={"GET_PRODUCT_LIST"})
      *
@@ -68,10 +92,19 @@ class ProductController extends AbstractFOSRestController
     {
         $pager = $this->getDoctrine()->getRepository(Product::class)->search(
             $paramFetcher->get('offset'),
-            $paramFetcher->get('limit')
+            $paramFetcher->get('limit'),
+            $paramFetcher->get('keyword'),
+            $paramFetcher->get('brand'),
+            $paramFetcher->get('category_name'),
+            $paramFetcher->get('in_stock')
         );
 
-        return new Products($pager);
+        return new Products(
+            $pager, $paramFetcher->get('keyword'),
+            $paramFetcher->get('brand'),
+            $paramFetcher->get('category_name'),
+            $paramFetcher->get('in_stock')
+        );
     }
 
     /**

@@ -30,7 +30,7 @@ class Users
 
     public $meta;
 
-    public function __construct(Pagerfanta $pager)
+    public function __construct(Pagerfanta $pager, $order, $firstName, $lastName)
     {
         $this->data = $pager->getCurrentPageResults();
 
@@ -38,6 +38,9 @@ class Users
         $this->addMeta('current_items', count($pager->getCurrentPageResults()));
         $this->addMeta('total_items', $pager->getNbResults());
         $this->addMeta('offset', $pager->getCurrentPageOffsetStart());
+        $this->addMeta('order', $order);
+        if ($firstName) $this->addMeta('first_name', $firstName);
+        if ($lastName) $this->addMeta('last_name', $lastName);
     }
 
     public function addMeta($name, $value)

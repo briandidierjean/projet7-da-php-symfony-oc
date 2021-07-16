@@ -16,7 +16,7 @@ class UserFixtures extends Fixture
     public function __construct()
     {
         $this->faker = Faker\Factory::create('fr_FR');
-        $this->faker->seed(4746);
+        $this->faker->seed(5486);
     }
 
     public function formatPhoneNumber($phoneNumber)

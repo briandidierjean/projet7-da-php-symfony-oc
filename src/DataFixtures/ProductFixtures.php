@@ -14,7 +14,7 @@ class ProductFixtures extends Fixture
     public function __construct()
     {
         $this->faker = Faker\Factory::create('fr_FR');
-        $this->faker->seed(4746);
+        $this->faker->seed(5486);
     }
 
     public function generateSmartphone($name, $brand, $price)
@@ -65,7 +65,7 @@ class ProductFixtures extends Fixture
         );
 
         $manager->persist($this->generateSmartphone(
-            'iPhone 12 Pro Max bleu pacifique 128 Go',
+            'iPhone 12 Pro Max Bleu pacifique 128 Go',
             'Apple',
             1259)
         );
@@ -89,7 +89,7 @@ class ProductFixtures extends Fixture
         );
 
         $manager->persist($this->generateSmartphone(
-            'Galaxy Z Fold 2 5G noir',
+            'Galaxy Z Fold 2 5G Noir',
             'Samsung',
             1799)
         );
