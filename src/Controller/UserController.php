@@ -27,9 +27,14 @@ use Symfony\Component\Validator\ConstraintViolationList;
 class UserController extends AbstractFOSRestController
 {
     /**
-     * Customer's User List
-     *
      * Return the list of all users that belong to a customer.
+     *
+     * @param Customer|null $customer
+     * @param ParamFetcherInterface $paramFetcher
+     *
+     * @return Users
+     *
+     * @throws ForbiddenException
      *
      * @Get(
      *     path="/customers/{id}/users",
@@ -136,9 +141,15 @@ class UserController extends AbstractFOSRestController
     }
 
     /**
-     * Customer's User Details
-     *
      * Return the details of a user that belongs to a customer.
+     *
+     * @param Customer|null $customer
+     * @param User|null $user
+     *
+     * @return User
+     *
+     * @throws ForbiddenException
+     * @throws NotFoundHttpException
      *
      * @Get(
      *     path="/customers/{customer_id}/users/{user_id}",
@@ -201,9 +212,16 @@ class UserController extends AbstractFOSRestController
     }
 
     /**
-     * Adding Customer's User
-     *
      * Add a user for a customer.
+     *
+     * @param User $user
+     * @param Customer|null $customer
+     * @param ConstraintViolationList $violations
+     *
+     * @return \FOS\RestBundle\View\View
+     *
+     * @throws ForbiddenException
+     * @throws ResourceValidationException
      *
      * @Post(path="/customers/{id}/users", name="user_create")
      *
@@ -291,9 +309,13 @@ class UserController extends AbstractFOSRestController
     }
 
     /**
-     * Deleting Customer's User
-     *
      * Deleting a user from a customer.
+     *
+     * @param Customer|null $customer
+     * @param User|null $user
+     *
+     * @throws ForbiddenException
+     * @throws NotFoundHttpException
      *
      * @Delete(
      *     path="/customers/{customer_id}/users/{user_id}",

@@ -15,12 +15,19 @@ use Nelmio\ApiDocBundle\Annotation\Model;
 use Nelmio\ApiDocBundle\Annotation\Security;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
+/**
+ * Class ProductController
+ *
+ * @package App\Controller
+ */
 class ProductController extends AbstractFOSRestController
 {
     /**
-     * Product List
-     *
      * Return the list of all products.
+     *
+     * @param ParamFetcherInterface $paramFetcher
+     *
+     * @return Products
      *
      * @Get(path="/products", name="product_list")
      *
@@ -131,9 +138,13 @@ class ProductController extends AbstractFOSRestController
     }
 
     /**
-     * Product Details
-     *
      * Return the details of a product.
+     *
+     * @param Product|null $product
+     *
+     * @return Product
+     *
+     * @throws NotFoundHttpException
      *
      * @Get(
      *     path="/products/{id}",

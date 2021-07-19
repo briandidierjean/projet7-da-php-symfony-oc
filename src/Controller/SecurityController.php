@@ -10,9 +10,9 @@ use OpenApi\Annotations as OA;
 class SecurityController extends AbstractFOSRestController
 {
     /**
-     * Login
-     *
      * Return a Bearer Token.
+     *
+     * @throws \Exception
      *
      * @Post(path="/login")
      *
