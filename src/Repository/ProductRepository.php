@@ -3,9 +3,26 @@
 
 namespace App\Repository;
 
+/**
+ * Class ProductRepository
+ *
+ * @package App\Repository
+ */
 class ProductRepository extends AbstractRepository
 {
-    public function search($offset, $limit, $keyword, $brand, $categoryName, $in_stock)
+    /**
+     * Search for products.
+     *
+     * @param int $offset
+     * @param int $limit
+     * @param string $keyword
+     * @param string $brand
+     * @param string $categoryName
+     * @param bool $inStock
+     *
+     * @return \Pagerfanta\Pagerfanta
+     */
+    public function search(int $offset, int $limit, string $keyword, string $brand, string $categoryName, bool $inStock)
     {
         $queryBuilder = $this
             ->createQueryBuilder('p')
@@ -35,7 +52,7 @@ class ProductRepository extends AbstractRepository
             ;
         }
 
-        if ($in_stock === 'true') $queryBuilder->andWhere('p.stock > 0');
+        if ($inStock) $queryBuilder->andWhere('p.stock > 0');
 
         return $this->paginate($queryBuilder, $offset, $limit);
     }

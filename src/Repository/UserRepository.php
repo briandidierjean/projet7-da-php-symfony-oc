@@ -4,9 +4,35 @@
 namespace App\Repository;
 
 
+use App\Entity\Customer;
+
+/**
+ * Class UserRepository
+ *
+ * @package App\Repository
+ */
 class UserRepository extends AbstractRepository
 {
-    public function search($customer, $offset, $limit, $order, $firstName, $lastName)
+    /**
+     * Search for users that belong to a customer.
+     *
+     * @param Customer $customer
+     * @param int $offset
+     * @param int $limit
+     * @param string $order
+     * @param string $firstName
+     * @param string $lastName
+     *
+     * @return \Pagerfanta\Pagerfanta
+     */
+    public function search(
+        Customer $customer,
+        int $offset,
+        int $limit,
+        string $order,
+        string $firstName,
+        string $lastName
+    )
     {
         $queryBuilder = $this
             ->createQueryBuilder('u')

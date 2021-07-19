@@ -8,9 +8,23 @@ use Doctrine\ORM\QueryBuilder;
 use Pagerfanta\Doctrine\ORM\QueryAdapter;
 use Pagerfanta\Pagerfanta;
 
+/**
+ * Class AbstractRepository
+ *
+ * @package App\Repository
+ */
 abstract class AbstractRepository extends EntityRepository
 {
-    protected function paginate(QueryBuilder $queryBuilder, $offset, $limit)
+    /**
+     * Paginate data.
+     *
+     * @param QueryBuilder $queryBuilder
+     * @param int $offset
+     * @param int $limit
+     *
+     * @return Pagerfanta
+     */
+    protected function paginate(QueryBuilder $queryBuilder, int $offset, int $limit)
     {
         if ($limit === 0) {
             throw new \LogicException('$limit must be greater than 0.');
