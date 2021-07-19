@@ -10,6 +10,10 @@ use JMS\Serializer\Annotation as Serializer;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
+ * Class User
+ *
+ * @package App\Entity
+ *
  * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
  * @ORM\Table(name="users")
  *
@@ -62,6 +66,8 @@ use Symfony\Component\Validator\Constraints as Assert;
 class User
 {
     /**
+     * @var int
+     *
      * @ORM\Column(type="integer")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
@@ -71,6 +77,8 @@ class User
     private $id;
 
     /**
+     * @var Customer
+     *
      * @ORM\ManyToOne(targetEntity="Customer", inversedBy="users", fetch="EAGER")
      * @ORM\JoinColumn(name="customer_id", referencedColumnName="id")
      *
@@ -79,6 +87,8 @@ class User
     private $customer;
 
     /**
+     * @var string
+     *
      * @ORM\Column(type="string", length=100, nullable=false)
      *
      * @Serializer\Groups({"GET_USER_LIST", "GET_USER_SHOW"})
@@ -89,6 +99,8 @@ class User
     private $phone;
 
     /**
+     * @var string
+     *
      * @ORM\Column(type="string", length=100, nullable=false)
      *
      * @Serializer\Groups({"GET_USER_LIST", "GET_USER_SHOW"})
@@ -100,6 +112,8 @@ class User
     private $email;
 
     /**
+     * @var string
+     *
      * @ORM\Column(type="string", length=100, nullable=true)
      *
      * @Serializer\Groups({"GET_USER_LIST", "GET_USER_SHOW"})
@@ -115,6 +129,8 @@ class User
     private $firstName;
 
     /**
+     * @var string
+     *
      * @ORM\Column(type="string", length=100, nullable=true)
      *
      * @Serializer\Groups({"GET_USER_LIST", "GET_USER_SHOW"})
@@ -130,22 +146,41 @@ class User
     private $lastName;
 
     /**
+     * @var DateTime
+     *
      * @ORM\Column(type="datetime", nullable=false)
      *
      * @Serializer\Groups({"GET_USER_SHOW"})
      */
     private $registeredAt;
 
+    /**
+     * Get user ID.
+     *
+     * @return int
+     */
     public function getId(): int
     {
         return $this->id;
     }
 
+    /**
+     * Get customer that owns the user.
+     *
+     * @return Customer
+     */
     public function getCustomer(): Customer
     {
         return $this->customer;
     }
 
+    /**
+     * Set customer that owns the user.
+     *
+     * @param Customer $customer
+     *
+     * @return $this
+     */
     public function setCustomer(Customer $customer): self
     {
         $this->customer = $customer;
@@ -153,11 +188,23 @@ class User
         return $this;
     }
 
+    /**
+     * Get user phone.
+     *
+     * @return string
+     */
     public function getPhone(): string
     {
         return $this->phone;
     }
 
+    /**
+     * Set user phone.
+     *
+     * @param string $phone
+     *
+     * @return $this
+     */
     public function setPhone(string $phone): self
     {
         $this->phone = $phone;
@@ -165,11 +212,23 @@ class User
         return $this;
     }
 
+    /**
+     * Get user email.
+     *
+     * @return string
+     */
     public function getEmail(): string
     {
         return $this->email;
     }
 
+    /**
+     * Set user email.
+     *
+     * @param string $email
+     *
+     * @return $this
+     */
     public function setEmail(string $email): self
     {
         $this->email = $email;
@@ -177,11 +236,23 @@ class User
         return $this;
     }
 
+    /**
+     * Get user first name.
+     *
+     * @return string
+     */
     public function getFirstName(): string
     {
         return $this->firstName;
     }
 
+    /**
+     * Set user first name.
+     *
+     * @param string $firstName
+     *
+     * @return $this
+     */
     public function setFirstName(string $firstName): self
     {
         $this->firstName = $firstName;
@@ -189,11 +260,23 @@ class User
         return $this;
     }
 
+    /**
+     * Get user last name.
+     *
+     * @return string
+     */
     public function getLastName(): string
     {
         return $this->lastName;
     }
 
+    /**
+     * Set user last name.
+     *
+     * @param string $lastName
+     *
+     * @return $this
+     */
     public function setLastName(string $lastName): self
     {
         $this->lastName = $lastName;
@@ -201,11 +284,23 @@ class User
         return $this;
     }
 
+    /**
+     * Get user registration datetime.
+     *
+     * @return DateTime
+     */
     public function getRegisteredAt(): DateTime
     {
         return $this->registeredAt;
     }
 
+    /**
+     * Get user registration datetime.
+     *
+     * @param DateTime $registeredAt
+     *
+     * @return $this
+     */
     public function setRegisteredAt(DateTime $registeredAt): self
     {
         $this->registeredAt = $registeredAt;
