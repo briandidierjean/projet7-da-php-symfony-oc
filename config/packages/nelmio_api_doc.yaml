@@ -1,7 +1,11 @@
 nelmio_api_doc:
     documentation:
+        servers:
+            - url: http://localhost:8000
+              description: API over HTTP
         info:
             title: BileMo API Documentation
+            description: API documentation for BileMo web service.
             version: 1.0.0
         components:
             securitySchemes:

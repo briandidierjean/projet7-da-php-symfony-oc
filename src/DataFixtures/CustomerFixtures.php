@@ -11,7 +11,7 @@ use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 class CustomerFixtures extends Fixture
 {
-    public const OCTELECOM_CUSTOMER_REFERENCE = 'orange-customer';
+    public const OCTELECOM_CUSTOMER_REFERENCE = 'octelecom-customer';
 
     private $userPasswordHasher;
 

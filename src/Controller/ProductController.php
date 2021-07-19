@@ -75,6 +75,26 @@ class ProductController extends AbstractFOSRestController
      *     in="query",
      *     @OA\Schema(type="integer")
      * )
+     * @OA\Parameter(
+     *     name="keyword",
+     *     in="query",
+     *     @OA\Schema(type="string")
+     * )
+     * @OA\Parameter(
+     *     name="brand",
+     *     in="query",
+     *     @OA\Schema(type="string")
+     * )
+     * @OA\Parameter(
+     *     name="category_name",
+     *     in="query",
+     *     @OA\Schema(type="string")
+     * )
+     * @OA\Parameter(
+     *     name="in_stock",
+     *     in="query",
+     *     @OA\Schema(type="boolean")
+     * )
      * @OA\Response(
      *     response=200,
      *     description="Return the list of the products.",

@@ -88,6 +88,11 @@ class UserController extends AbstractFOSRestController
      *     in="query",
      *     @OA\Schema(type="integer")
      * )
+     * @OA\Parameter(
+     *     name="order",
+     *     in="query",
+     *     @OA\Schema(type="string", enum={"asc", "desc"})
+     * )
      * @OA\Response(
      *     response=200,
      *     description="Return the list of the users",
@@ -214,6 +219,18 @@ class UserController extends AbstractFOSRestController
      *     description="The customer ID.",
      *     @OA\Schema(type="integer")
      * )
+     * @OA\RequestBody(
+     *     required=true,
+     *     @OA\MediaType(
+     *         mediaType="application/json",
+     *         @OA\Schema(
+     *             @OA\Property(property="phone", type="string", example="06XXXXXXXX"),
+     *             @OA\Property(property="email", type="string", example="jeandupont@example.com"),
+     *             @OA\Property(property="first_name", type="string", example="Jean"),
+     *             @OA\Property(property="last_name", type="string", example="Dupont")
+     *         )
+     *     )
+     * )
      * @OA\Response(
      *     response=201,
      *     description="The user was successfully added.",
@@ -230,18 +247,6 @@ class UserController extends AbstractFOSRestController
      * @OA\Response(
      *     response=400,
      *     description="The JSON sent contains invalid data."
-     * )
-     * @OA\RequestBody(
-     *     required=true,
-     *     @OA\MediaType(
-     *         mediaType="application/json",
-     *         @OA\Schema(
-     *             @OA\Property(property="phone", type="string", example="06XXXXXXXX"),
-     *             @OA\Property(property="email", type="string", example="jeandupont@example.com"),
-     *             @OA\Property(property="first_name", type="string", example="Jean"),
-     *             @OA\Property(property="last_name", type="string", example="Dupont")
-     *         )
-     *     )
      * )
      */
     public function createAction(User $user, Customer $customer = null, ConstraintViolationList $violations)
