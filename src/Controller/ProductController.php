@@ -110,20 +110,23 @@ class ProductController extends AbstractFOSRestController
      */
     public function listAction(ParamFetcherInterface $paramFetcher)
     {
+        $inStock = false;
+        if ($paramFetcher->get('in_stock') === 'true') $inStock = true;
+
         $pager = $this->getDoctrine()->getRepository(Product::class)->search(
             $paramFetcher->get('offset'),
             $paramFetcher->get('limit'),
             $paramFetcher->get('keyword'),
             $paramFetcher->get('brand'),
             $paramFetcher->get('category_name'),
-            $paramFetcher->get('in_stock')
+            $inStock
         );
 
         return new Products(
             $pager, $paramFetcher->get('keyword'),
             $paramFetcher->get('brand'),
             $paramFetcher->get('category_name'),
-            $paramFetcher->get('in_stock')
+            $inStock
         );
     }
 

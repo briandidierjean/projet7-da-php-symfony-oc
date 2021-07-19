@@ -9,6 +9,10 @@ use JMS\Serializer\Annotation as Serializer;
 use Pagerfanta\Pagerfanta;
 
 /**
+ * Class Users
+ *
+ * @package App\Representation
+ *
  * @Hateoas\Relation(
  *     "meta",
  *     embedded=@Hateoas\Embedded("expr(object.getMeta())"),
@@ -23,14 +27,27 @@ use Pagerfanta\Pagerfanta;
 class Users
 {
     /**
+     * @var array
+     *
      * @Serializer\Groups({"GET_USER_LIST"})
      * @Serializer\Type("array<App\Entity\User>")
      */
     public $data;
 
+    /**
+     * @var array
+     */
     public $meta;
 
-    public function __construct(Pagerfanta $pager, $order, $firstName, $lastName)
+    /**
+     * Users constructor.
+     *
+     * @param Pagerfanta $pager
+     * @param string $order
+     * @param string $firstName
+     * @param string $lastName
+     */
+    public function __construct(Pagerfanta $pager, string $order, string $firstName, string $lastName)
     {
         $this->data = $pager->getCurrentPageResults();
 
@@ -43,6 +60,12 @@ class Users
         if ($lastName) $this->addMeta('last_name', $lastName);
     }
 
+    /**
+     * Add values to meta data.
+     *
+     * @param string $name
+     * @param string $value
+     */
     public function addMeta($name, $value)
     {
         if (isset($this->meta[$name])) {
@@ -53,11 +76,22 @@ class Users
         $this->setMeta($name, $value);
     }
 
+    /**
+     * Get meta data.
+     *
+     * @return array
+     */
     public function getMeta()
     {
         return $this->meta;
     }
 
+    /**
+     * Set meta data.
+     *
+     * @param string $name
+     * @param string $value
+     */
     public function setMeta($name, $value)
     {
         $this->meta[$name] = $value;

@@ -8,6 +8,10 @@ use JMS\Serializer\Annotation as Serializer;
 use Pagerfanta\Pagerfanta;
 
 /**
+ * Class Products
+ *
+ * @package App\Representation
+ *
  * @Hateoas\Relation(
  *     "meta",
  *     embedded=@Hateoas\Embedded("expr(object.getMeta())"),
@@ -22,14 +26,34 @@ use Pagerfanta\Pagerfanta;
 class Products
 {
     /**
+     * @var array
+     *
      * @Serializer\Groups({"GET_PRODUCT_LIST"})
      * @Serializer\Type("array<App\Entity\Product>")
      */
     public $data;
 
+    /**
+     * @var array
+     */
     public $meta;
 
-    public function __construct(Pagerfanta $pager, $keyword, $brand, $categoryName, $in_stock)
+    /**
+     * Products constructor.
+     *
+     * @param Pagerfanta $pager
+     * @param string $keyword
+     * @param string $brand
+     * @param string $categoryName
+     * @param bool $inStock
+     */
+    public function __construct(
+        Pagerfanta $pager,
+        string $keyword,
+        string $brand,
+        string $categoryName,
+        bool $inStock
+    )
     {
         $this->data = $pager->getCurrentPageResults();
 
@@ -40,10 +64,16 @@ class Products
         if ($keyword) $this->addMeta('keyword', $keyword);
         if ($brand) $this->addMeta('brand', $brand);
         if ($categoryName) $this->addMeta('category', $categoryName);
-        if ($in_stock === 'true') $this->addMeta('in_stock', $in_stock);
+        if ($inStock) $this->addMeta('in_stock', $inStock);
     }
 
-    public function addMeta($name, $value)
+    /**
+     * Add values to meta data.
+     *
+     * @param string $name
+     * @param string $value
+     */
+    public function addMeta(string $name, string $value)
     {
         if (isset($this->meta[$name])) {
             throw new \LogicException(sprintf('This meta already exists. You are trying to override this meta,
@@ -53,12 +83,23 @@ class Products
         $this->setMeta($name, $value);
     }
 
+    /**
+     * Get meta data.
+     *
+     * @return array
+     */
     public function getMeta()
     {
         return $this->meta;
     }
 
-    public function setMeta($name, $value)
+    /**
+     * Set meta data.
+     *
+     * @param string $name
+     * @param string $value
+     */
+    public function setMeta(string $name, string $value)
     {
         $this->meta[$name] = $value;
     }
