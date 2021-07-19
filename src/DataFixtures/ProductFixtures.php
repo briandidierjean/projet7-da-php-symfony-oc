@@ -7,17 +7,37 @@ use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
 use Faker;
 
+/**
+ * Class ProductFixtures
+ *
+ * @package App\DataFixtures
+ */
 class ProductFixtures extends Fixture
 {
+    /**
+     * @var Faker\Generator
+     */
     private $faker;
 
+    /**
+     * ProductFixtures constructor.
+     */
     public function __construct()
     {
         $this->faker = Faker\Factory::create('fr_FR');
         $this->faker->seed(5486);
     }
 
-    public function generateSmartphone($name, $brand, $price)
+    /**
+     * Generate smartphone data.
+     *
+     * @param string $name
+     * @param string $brand
+     * @param int $price
+     *
+     * @return Product
+     */
+    public function generateSmartphone(string $name, string $brand, int $price)
     {
         $product = new Product();
         $product->setReference(strtoupper(substr($this->faker->unique()->uuid(), 0, 20)));
@@ -32,6 +52,11 @@ class ProductFixtures extends Fixture
         return $product;
     }
 
+    /**
+     * Load products data.
+     *
+     * @param ObjectManager $manager
+     */
     public function load(ObjectManager $manager)
     {
         $manager->persist($this->generateSmartphone(

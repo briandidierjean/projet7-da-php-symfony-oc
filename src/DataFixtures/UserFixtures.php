@@ -9,17 +9,35 @@ use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
 use Faker;
 
+/**
+ * Class UserFixtures
+ *
+ * @package App\DataFixtures
+ */
 class UserFixtures extends Fixture
 {
+    /**
+     * @var Faker\Generator
+     */
     private $faker;
 
+    /**
+     * UserFixtures constructor.
+     */
     public function __construct()
     {
         $this->faker = Faker\Factory::create('fr_FR');
         $this->faker->seed(5486);
     }
 
-    public function formatPhoneNumber($phoneNumber)
+    /**
+     * Format a phone number to a French number.
+     *
+     * @param string $phoneNumber
+     *
+     * @return string
+     */
+    public function formatPhoneNumber(string $phoneNumber)
     {
         return str_replace(
             ' ', '', preg_replace(
@@ -28,6 +46,11 @@ class UserFixtures extends Fixture
         );
     }
 
+    /**
+     * Load users data.
+     *
+     * @param ObjectManager $manager
+     */
     public function load(ObjectManager $manager)
     {
         for ($i = 0; $i < 50; $i++) {
