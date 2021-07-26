@@ -1,5 +1,7 @@
 # BileMo
 
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/0d33781173a34744a833d67f5b0d8505)](https://app.codacy.com/gh/briandidierjean/projet7-da-php-symfony-oc?utm_source=github.com&utm_medium=referral&utm_content=briandidierjean/projet7-da-php-symfony-oc&utm_campaign=Badge_Grade_Settings)
+
 ## 1. Installation
 
 ### 1.1. Installation with Docker (recommended)
