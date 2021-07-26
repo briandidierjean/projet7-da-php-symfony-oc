@@ -16,7 +16,7 @@ services:
       MYSQL_USER: 'bilemo'
       MYSQL_PASSWORD: 'bilemo'
     networks:
-      - dev
+      - bilemo
 
   phpmyadmin:
     image: phpmyadmin
@@ -32,21 +32,19 @@ services:
       MYSQL_USER: 'bilemo'
       MYSQL_PASSWORD: 'bilemo'
     networks:
-      - dev
+      - bilemo
 
   www:
     build: ./
     container_name: www_docker-symfony
     ports:
       - 8000:8000
-    volumes:
-      - ./:/var/www/html
     restart: always
     networks:
-      - dev
+      - bilemo
 
 volumes:
   db_data:
 
 networks:
-  dev:
+  bilemo:
