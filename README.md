@@ -20,7 +20,7 @@ The API is ready ! Go to *localhost:8000* to interact with it and *localhost:888
 ### 1.2. Installation with LAMP
 
 Here is the installation with a LAMP stack. You can use the web server of your choice as long as you can make it work
-Symfony. You also need PHP 7.2, MySQL 8 and Composer.
+with Symfony. You also need PHP 7.2, MySQL 8 and Composer.
 
   - Clone the repository
   - Go to the project root
