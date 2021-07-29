@@ -42,16 +42,16 @@ class Products
      * Products constructor.
      *
      * @param Pagerfanta $pager
-     * @param string $keyword
-     * @param string $brand
-     * @param string $categoryName
+     * @param string|null $keyword
+     * @param string|null $brand
+     * @param string|null $categoryName
      * @param bool $inStock
      */
     public function __construct(
         Pagerfanta $pager,
-        string $keyword,
-        string $brand,
-        string $categoryName,
+        ?string $keyword,
+        ?string $brand,
+        ?string $categoryName,
         bool $inStock
     )
     {

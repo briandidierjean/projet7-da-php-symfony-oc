@@ -44,10 +44,10 @@ class Users
      *
      * @param Pagerfanta $pager
      * @param string $order
-     * @param string $firstName
-     * @param string $lastName
+     * @param string|null $firstName
+     * @param string|null $lastName
      */
-    public function __construct(Pagerfanta $pager, string $order, string $firstName, string $lastName)
+    public function __construct(Pagerfanta $pager, string $order, ?string $firstName, ?string $lastName)
     {
         $this->data = $pager->getCurrentPageResults();
 

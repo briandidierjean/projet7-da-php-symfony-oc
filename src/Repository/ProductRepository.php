@@ -15,14 +15,14 @@ class ProductRepository extends AbstractRepository
      *
      * @param int $offset
      * @param int $limit
-     * @param string $keyword
-     * @param string $brand
-     * @param string $categoryName
+     * @param string|null $keyword
+     * @param string|null $brand
+     * @param string|null $categoryName
      * @param bool $inStock
      *
      * @return \Pagerfanta\Pagerfanta
      */
-    public function search(int $offset, int $limit, string $keyword, string $brand, string $categoryName, bool $inStock)
+    public function search(int $offset, int $limit, ?string $keyword, ?string $brand, ?string $categoryName, bool $inStock)
     {
         $queryBuilder = $this
             ->createQueryBuilder('p')

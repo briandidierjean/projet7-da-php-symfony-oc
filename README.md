@@ -12,10 +12,11 @@ time.
 -  Clone the repository
 -  Go to the project root
 -  Execute `docker-compose up` in your terminal
--  Execute `php bin/console doctrine:schema:update --force` in www_docker-symfony shell
--  Execute `php bin/console doctrine:fixture:load` in www_docker-symfony shell
--  Execute `php bin/console lexik:jwt:generate-keypair` in www_docker-symfony shell
--  Create a *.env.local* file and add `APP_ENV=prod`
+-  Execute `php bin/console doctrine:schema:update --force` in www_docker-symfony container shell
+-  Execute `php bin/console doctrine:fixture:load` in www_docker-symfony container shell
+-  Execute `php bin/console lexik:jwt:generate-keypair` in www_docker-symfony container shell
+-  Create a *.env.local* file and add `APP_ENV=prod` in www_docker-symfony container
+-  Execute `php bin/console c:c` in www_docker-symfony container shell
 
 The API is ready ! Go to *localhost:8000* to interact with it and *localhost:8888* for phpMyAdmin.
 
@@ -32,6 +33,7 @@ with Symfony. You also need PHP 7.2, MySQL 8 and Composer.
 -  Execute `php bin/console doctrine:fixture:load` in your terminal
 -  Execute `php bin/console lexik:jwt:generate-keypair` in your terminal
 -  Add `APP_ENV=prod` in *.env.local*
+-  Execute `php bin/console c:c` in your terminal
 
 Now the API should work.
 

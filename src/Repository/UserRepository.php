@@ -20,8 +20,8 @@ class UserRepository extends AbstractRepository
      * @param int $offset
      * @param int $limit
      * @param string $order
-     * @param string $firstName
-     * @param string $lastName
+     * @param string|null $firstName
+     * @param string|null $lastName
      *
      * @return \Pagerfanta\Pagerfanta
      */
@@ -30,8 +30,8 @@ class UserRepository extends AbstractRepository
         int $offset,
         int $limit,
         string $order,
-        string $firstName,
-        string $lastName
+        ?string $firstName,
+        ?string $lastName
     )
     {
         $queryBuilder = $this
